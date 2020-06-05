@@ -14,12 +14,13 @@ puntuacion = 0
 # contadorMeteoritos > 15, sustituir el
 # 15 por una vble y cambiarla cada nivel
 
+
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption("Dinosaurio")
     fondo_image, fondo_rect = load_image("images/fondo.jpg")
-    screen.blit(fondo_image, (0,0))
+    screen.blit(fondo_image, (0, 0))
     pygame.mouse.set_visible(False)
 
     dinosaurioSprite = pygame.sprite.RenderClear()
@@ -40,7 +41,7 @@ def main():
     contadorJamon = 0
     contadorMeteoritoGordo = 0
 
-    # puntuacion ("imagen")
+    # puntuacion("imagen")
     # imagenpuntuacion = pygame.font.Font.render('0000',False,(0,0,255))
 
     nivel = 0
@@ -55,7 +56,7 @@ def main():
         if contadorNivel == nivel * 1000:
             nivel += 1
             # puntuacion = 1000 # 1000 puntos por pasar de nivel
-            print 'nuevonivel'
+            print('nuevonivel')
 
         if contadorMeteoritos > 30:
             contadorMeteoritos = 0
@@ -131,13 +132,14 @@ def main():
 def load_image(nombre, colorkey=False):
     try:
         image = pygame.image.load(nombre)
-    except pygame.error, message:
-        print 'No se puede cargar la imagen ', name
+    except pygame.error as message:
+        print('No se puede cargar la imagen ', name)
         raise(SystemExit, message)
-    image = image.convert()
-    if(colorkey):
-        colorkey = image.get_at((0, 0))
-        image.set_colorkey(colorkey, RLEACCEL)
+
+    image = image.convert_alpha()
+    # if(colorkey):
+    #     colorkey = image.get_at((0, 0))
+    #     image.set_colorkey(colorkey, RLEACCEL)
     return image, image.get_rect()
 
 class dinosaurio(pygame.sprite.Sprite):
@@ -161,22 +163,22 @@ class dinosaurio(pygame.sprite.Sprite):
 
     def collision(self):
         self.vidas -= 1
-        print self.vidas
+        print(self.vidas)
         if self.vidas == 0:
-            print 'Has perdido'
-            print "puntuacion: " + str(puntuacion)
+            print('Has perdido')
+            print("puntuacion: " + str(puntuacion))
             raise SystemExit
 
     def collisionJamon(self):
         self.vidas += 1
-        print self.vidas
+        print(self.vidas)
 
     def collisionMeteoritoGordo(self):
         self.vidas -= 2
-        print self.vidas
+        print(self.vidas)
         if self.vidas <= 0:
-            print 'Has perdido'
-            print "puntuacion: " + str(puntuacion)
+            print('Has perdido')
+            print("puntuacion: " + str(puntuacion))
             raise SystemExit
 
 
@@ -201,7 +203,7 @@ class jamon(pygame.sprite.Sprite):
 
     def __init__(self, x):
         pygame.sprite.Sprite.__init__(self)
-        self.image, self.rect = load_image("images/jamon.jpg", True)
+        self.image, self.rect = load_image("images/jamon.png", True)
         self.rect.centerx = x
         self.rect.centery = 5
         self.speed = [0, 2]
