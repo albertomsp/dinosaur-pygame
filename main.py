@@ -14,8 +14,8 @@ score = 0
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    pygame.display.set_caption("Dinosaur RAWR!")
-    background_image, background_rect = load_image("images/background.png")
+    pygame.display.set_caption('Dinosaur RAWR!')
+    background_image, background_rect = _load_image('images/background.png')
     screen.blit(background_image, (0, 0))
     pygame.mouse.set_visible(False)
 
@@ -28,127 +28,122 @@ def main():
     meteors_sprite.add(Meteor(300))
     meteors_sprite.add(Meteor(560))
 
-    jamonSprite = pygame.sprite.RenderClear()
+    ham_sprite = pygame.sprite.RenderClear()
 
     big_meteor_sprite = pygame.sprite.RenderClear()
 
     clock = pygame.time.Clock()
-    contadorMeteoritos = 0
-    contadorJamon = 0
-    contadorMeteoritoGordo = 0
+    meteor_counter = 0
+    ham_counter = 0
+    big_meteor_counter = 0
 
-    # score("imagen")
-    # imagenpuntuacion = pygame.font.Font.render('0000',False,(0,0,255))
+    # score('image')
+    # score_image = pygame.font.Font.render('0000',False,(0,0,255))
 
-    nivel = 0
-    contadorNivel = 0
+    level = 0
+    level_counter = 0
 
     while 1:
         clock.tick(60)
 
         pygame.event.pump()
-        dinosaur.mover_raton()
+        dinosaur.move_with_mouse()
 
-        if contadorNivel == nivel * 1000:
-            nivel += 1
-            # score = 1000 # 1000 puntos por pasar de nivel
-            print('nuevonivel')
+        if level_counter == level * 1000:
+            level += 1
+            # score = 1000 # 1000 puntos por pasar de level
+            print('New Level')
 
-        if contadorMeteoritos > 30:
-            contadorMeteoritos = 0
+        if meteor_counter > 30:
+            meteor_counter = 0
             meteors_sprite.add(Meteor(random.randint(5, 590)))
-            # score += 10 #10 puntos por cada meteorito
+            # score += 10 # 10 points for each dodged meteor
 
-        # En el contadorJamon se puede poner algo para el nivel, por ejemplo
-        # contadorJamon == nivel * 50 o algo por el estilo
-        if contadorJamon == 100:
-            contadorJamon = 0
-            jamonSprite.add(jamon(random.randint(5, 590)))
+        if ham_counter == 100:
+            ham_counter = 0
+            ham_sprite.add(Ham(random.randint(5, 590)))
             # score += 50
         else:
-            contadorJamon += 1
+            ham_counter += 1
 
-        if contadorMeteoritoGordo >= 20:
-            contadorMeteoritoGordo = 0
+        if big_meteor_counter >= 20:
+            big_meteor_counter = 0
             big_meteor_sprite.add(BigMeteor(random.randint(5, 590)))
             # score += 20
         else:
-            contadorMeteoritoGordo += 1
+            big_meteor_counter += 1
 
-        contadorNivel += 1
+        level_counter += 1
 
-        # Actualizamos todos los sprites (sin mostrar los cambios por pantalla
+        # Update every sprite (not showing the update in the screen yet)
         meteors_sprite.update()
         dinosaur_sprite.update()
-        jamonSprite.update()
+        ham_sprite.update()
         big_meteor_sprite.update()
 
-        # Miramos a ver si algun meteorito le ha dado al dinosaur
-        # Si pone un 1 el objeto se destruye y si pones un 0 el objeto sigue vivo
-        # (ponemos un 0 para el dinosaur y un 1 para el grupo de meteoritos)
+        # 1 if the object is destroyed, 0 if the object keeps living:
+        # Check if any meteor or ham has hit the dinosaur.
         for hit in pygame.sprite.groupcollide(dinosaur_sprite, meteors_sprite, 0, 1):
             for din in dinosaur_sprite:
-                din.collision()
-        # Comprobamos si el dinosaur 'come' un jamon
-        for hit in pygame.sprite.groupcollide(dinosaur_sprite, jamonSprite, 0, 1):
-            for din in dinosaur_sprite:
-                din.collisionJamon()
-        # Comprobamos si un meteorito gordo le da al dinosaur
+                din.meteor_collision()
+        # Check if any big meteor has hit the dinosaur.
         for hit in pygame.sprite.groupcollide(dinosaur_sprite, big_meteor_sprite, 0, 1):
             for din in dinosaur_sprite:
-                din.collisionMeteoritoGordo()
+                din.big_meteor_collision()
+        # Check if the dinosaur has eaten a ham
+        for hit in pygame.sprite.groupcollide(dinosaur_sprite, ham_sprite, 0, 1):
+            for din in dinosaur_sprite:
+                din.ham_collision()
 
-        # Limpiamos todo lo que fue pintado por ultima vez
+        # Clears everything that is out of date in this iteration of the loop
         meteors_sprite.clear(screen, background_image)
         dinosaur_sprite.clear(screen, background_image)
-        jamonSprite.clear(screen, background_image)
+        ham_sprite.clear(screen, background_image)
         big_meteor_sprite.clear(screen, background_image)
 
-        # Pinta todo
+        # Draws everything that has changed in this iteration of the loop
         meteors_sprite.draw(screen)
         dinosaur_sprite.draw(screen)
-        jamonSprite.draw(screen)
+        ham_sprite.draw(screen)
         big_meteor_sprite.draw(screen)
 
-        # Eventos para salir del juego
+        # Events to exit the game
         pygame.event.pump()
         keyinput = pygame.key.get_pressed()
         if keyinput[K_ESCAPE] or pygame.event.peek(QUIT):
             raise SystemExit
 
-        contadorMeteoritos = contadorMeteoritos + 1 + nivel
+        meteor_counter = meteor_counter + 1 + level
 
         time.sleep(20.0 / 1000.0)
 
-        # Se redibuja el fondo y se actualizan las imagenes
-
+        # Re-draw everything and update the images
         pygame.display.flip()
 
 
-def load_image(nombre, colorkey=False):
-    try:
-        image = pygame.image.load(nombre)
-    except pygame.error as message:
-        print('No se puede cargar la imagen ', name)
-        raise(SystemExit, message)
-
-    image = image.convert_alpha()
-    # if(colorkey):
-    #     colorkey = image.get_at((0, 0))
-    #     image.set_colorkey(colorkey, RLEACCEL)
+def _load_image(image_path, colorkey=False):
+    """ Utility method to load the images. It handles if the images contain
+    transparency.
+    """
+    image = pygame.image.load(image_path).convert_alpha()
     return image, image.get_rect()
 
+
 class Dinosaur(pygame.sprite.Sprite):
+    """ Class that handles all of the logic of the Player (Dinosaur)
+    """
 
     def __init__(self, y):
         pygame.sprite.Sprite.__init__(self)
-        self.image, self.rect = load_image("images/dinosaur.png")
+        self.image, self.rect = _load_image('images/dinosaur.png')
         self.rect.centerx = SCREEN_WIDTH / 2
         self.rect.centery = y
-        self.vidas = 5
+        self.current_lives = 5
         self.score = 0
 
-    def mover_raton(self):
+    def move_with_mouse(self):
+        """ Handles the movement of the dinosaur when the mouse is moved.
+        """
         pos = pygame.mouse.get_pos()
         self.rect.centerx = pos[0]
 
@@ -157,28 +152,37 @@ class Dinosaur(pygame.sprite.Sprite):
         elif self.rect.right > SCREEN_WIDTH:
             self.rect.right = SCREEN_WIDTH
 
-    def collision(self):
-        self.vidas -= 1
-        print(self.vidas)
-        if self.vidas == 0:
-            print('Has perdido')
-            print("score: " + str(score))
+    def update_current_lives(self, lives_change):
+        """ Adds or removes from `self.current_lives` as many lives specified
+        in lives_change.
+        """
+        self.current_lives += lives_change
+        print(self.current_lives)
+
+        if self.current_lives <= 0:
+            print('You Lost')
+            print('score: ' + str(score))
             raise SystemExit
 
-    def collisionJamon(self):
-        self.vidas += 1
-        print(self.vidas)
+    def meteor_collision(self):
+        """ Removes 1 live when hit by a big meteor.
+        """
+        self.update_current_lives(-1)
 
-    def collisionMeteoritoGordo(self):
-        self.vidas -= 2
-        print(self.vidas)
-        if self.vidas <= 0:
-            print('Has perdido')
-            print("score: " + str(score))
-            raise SystemExit
+    def ham_collision(self):
+        """ Adds 1 live when the dinosaur eats a ham.
+        """
+        self.update_current_lives(1)
+
+    def big_meteor_collision(self):
+        """ Removes 2 lives when hit by a big meteor.
+        """
+        self.update_current_lives(-2)
 
 
 class FlyingObject(pygame.sprite.Sprite):
+    """ Parent class of every object that falls from the sky
+    """
 
     def update(self):
         self.rect.move_ip((self.speed[0], self.speed[1]))
@@ -186,32 +190,35 @@ class FlyingObject(pygame.sprite.Sprite):
             # Si voy a poner varios, lo k hay k hacer es self.kill()
             self.kill()
 
-class Meteor(FlyingObject):
 
+class Meteor(FlyingObject):
+    """ Class for one of the "enemies".
+    """
     def __init__(self, x):
         FlyingObject.__init__(self)
-        self.image, self.rect = load_image("images/meteor.png")
+        self.image, self.rect = _load_image('images/meteor.png')
         self.rect.centerx = x
         self.rect.centery = 5
         self.speed = [randint(-2, 2), randrange(2) + 4]
 
 
 class BigMeteor(FlyingObject):
-
+    """ Class for one of the "enemies".
+    """
     def __init__(self, x):
         FlyingObject.__init__(self)
-        self.image, self.rect = load_image("images/meteor-big.png")
+        self.image, self.rect = _load_image('images/meteor-big.png')
         self.rect.centerx = x
         self.rect.centery = 5
         self.speed = [randint(-1, 1), randrange(2) + 3]
 
 
-
-class jamon(FlyingObject):
-
+class Ham(FlyingObject):
+    """ Class for a power up that gives a life to the player if eaten.
+    """
     def __init__(self, x):
         FlyingObject.__init__(self)
-        self.image, self.rect = load_image("images/ham.png", True)
+        self.image, self.rect = _load_image('images/ham.png', True)
         self.rect.centerx = x
         self.rect.centery = 5
         self.speed = [0, 2]
