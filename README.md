@@ -27,8 +27,8 @@ make run
 
 #### To install the package and check if it works before publishing the new version into https://pypi.org/:
 ```
-make package_install
-dinosaur_pygame  # checks if it runs properly in the console. Run this with your venv activated.
+make install_package  # This will run the game as a console script after the package has been built.
+dinosaur_pygame  # manually checks if it runs properly in the console. Run this with your venv activated.
 ```
 Good starting documentation for pypi packages: https://packaging.python.org/tutorials/packaging-projects/ and https://python-packaging.readthedocs.io/en/latest/command-line-scripts.html#the-console-scripts-entry-point.
 
