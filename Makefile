@@ -36,6 +36,15 @@ upload_package_to_test_pypi:
 		python3 -m pip install --upgrade twine; \
 		python3 -m twine upload --repository testpypi dist/*; \
 	)
-	# It asks for the token
+	# It asks for the test account token
 
+upload_package_to_pypi:
+	( \
+		source .venv/bin/activate; \
+		python3 -m pip install --upgrade setuptools wheel; \
+		python3 setup.py sdist bdist_wheel; \
+		python3 -m pip install --upgrade twine; \
+		python3 -m twine upload dist/*; \
+	)
+	# It asks for the production token
 

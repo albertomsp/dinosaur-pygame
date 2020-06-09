@@ -4,8 +4,10 @@ I made this game to learn how to use `pygame` in my 2nd year of my studies. I re
 
 I also left the original one in `first_version` folder just for the old times :D
 
+I recently uploaded the application to https://pypi.org/ to learn how to publish Python packages.
+
 ## Installation
-This app is uploaded in https://pypi.org/. To install and run it, you just need to:
+This app is uploaded in https://pypi.org/. To install and run it, you just need to (you may want to run it on a virtualenv):
 ```
 pip install dinosaur-pygame
 dinosaur_pygame  # The game is installed as a script, just needs to run that command for the game to start.
@@ -30,12 +32,22 @@ dinosaur_pygame  # checks if it runs properly in the console. Run this with your
 Good starting documentation for pypi packages: https://packaging.python.org/tutorials/packaging-projects/ and https://python-packaging.readthedocs.io/en/latest/command-line-scripts.html#the-console-scripts-entry-point.
 
 #### To publish the new package in test pypi
+This will upload the package to test pypi. This is a good way of testing if the package will work before publishing it into the real pypi.
 ```
-make upload_package_to_test_pypi  # it requires your token
+make upload_package_to_test_pypi  # it requires the test token
 python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps dinosaur-pygame=={VERSION}
 dinosaur_pygame  # Run the app
 ```
 
+#### To publish the new package in pypi
+Once every change have been thoroughly tested, we can upload the new version into the real https://pypi.org/.
+
+A new version will be needed (`setup.py`), as existing versions in `pypi` cannot be modified.
+```
+make upload_package_to_pypi  # it requires the token
+pip install dinosaur-pygame  # a version can be specified by dinosaur-pygame=={VERSION}
+dinosaur_pygame  # runs the app
+```
 
 ## Art
 For the new version, I got the images from https://opengameart.org/:

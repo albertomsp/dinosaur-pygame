@@ -4,3 +4,5 @@
 build/
 dinosaur_pygame.egg-info
 dist/
+
+__pycache__/
