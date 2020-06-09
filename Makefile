@@ -39,6 +39,7 @@ upload_package_to_test_pypi:
 		dinosaur_pygame; \
 	)
 	# Needs .pypirc file - it can be created from the template `pypirc_template`
+	# This also installs the uploaded package and test if it works in local
 
 upload_package_to_pypi:
 	( \
