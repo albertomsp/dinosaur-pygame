@@ -1,1 +1,1 @@
-dinosaur_pygame
+lib

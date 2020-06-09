@@ -4,6 +4,13 @@ I made this game to learn how to use `pygame` in my 2nd year of my studies. I re
 
 I also left the original one in `first_version` folder just for the old times :D
 
+## Installation
+This app is uploaded in https://pypi.org/. To install and run it, you just need to:
+```
+pip install dinosaur-pygame
+dinosaur_pygame  # The game is installed as a script, just needs to run that command for the game to start.
+```
+
 ## Local Development
 You may need to [install some prerequisites](https://www.pygame.org/wiki/GettingStarted) to make `pygame` work. Once they are installed, to install the project:
 ```
@@ -14,6 +21,15 @@ To run the application:
 ```
 make run
 ```
+
+To install the package and check if it works before publishing the new version into https://pypi.org/:
+```
+make clean
+make install
+make package_install
+dinosaur_pygame  # checks if it runs properly in the console. Run this with your venv activated.
+```
+Good starting documentation for pypi packages: https://packaging.python.org/tutorials/packaging-projects/
 
 ## Art
 For the new version, I got the images from https://opengameart.org/:

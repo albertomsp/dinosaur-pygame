@@ -15,7 +15,7 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption('Dinosaur RAWR!')
-    background_image, background_rect = _load_image('images/background.png')
+    background_image, background_rect = _load_image('images/background2.png')
     screen.blit(background_image, (0, 0))
     pygame.mouse.set_visible(False)
 

@@ -6,6 +6,11 @@ with open("README.md", "r") as fh:
 setuptools.setup(
     name="dinosaur-pygame",
     version="0.0.1",
+    entry_points={
+        'console_scripts': [
+            'dinosaur_pygame=dinosaur_pygame.main:main',
+        ],
+    },
     author="Alberto Morales",
     author_email="albertomoralessp@gmail.com",
     description="A dinosaur game made with pygame",
