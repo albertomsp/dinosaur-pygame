@@ -35,7 +35,7 @@ upload_package_to_test_pypi:
 		python3 setup.py sdist bdist_wheel; \
 		python3 -m pip install --upgrade twine; \
 		python3 -m twine upload --config-file .pypirc --repository testpypi dist/* ; \
-		pip install -i https://test.pypi.org/simple/ dinosaur-pygame==0.0.7; \
+		pip install -i https://test.pypi.org/simple/ dinosaur-pygame==0.0.8; \
 		dinosaur_pygame; \
 	)
 	# Needs .pypirc file - it can be created from the template `pypirc_template`
