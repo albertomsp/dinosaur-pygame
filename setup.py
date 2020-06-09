@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="dinosaur-pygame",
-    version="0.0.1",
+    version="0.0.2",
     entry_points={
         'console_scripts': [
             'dinosaur_pygame=dinosaur_pygame.main:main',

@@ -17,18 +17,24 @@ You may need to [install some prerequisites](https://www.pygame.org/wiki/Getting
 make install
 ```
 
-To run the application:
+#### To run the application:
 ```
 make run
 ```
 
-To install the package and check if it works before publishing the new version into https://pypi.org/:
+#### To install the package and check if it works before publishing the new version into https://pypi.org/:
 ```
 make package_install
 dinosaur_pygame  # checks if it runs properly in the console. Run this with your venv activated.
 ```
 Good starting documentation for pypi packages: https://packaging.python.org/tutorials/packaging-projects/ and https://python-packaging.readthedocs.io/en/latest/command-line-scripts.html#the-console-scripts-entry-point.
 
+#### To publish the new package in test pypi
+```
+make upload_package_to_test_pypi  # it requires your token
+python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps dinosaur-pygame
+dinosaur_pygame  # Run the app
+```
 
 
 ## Art
