@@ -1,3 +1,0 @@
-[console_scripts]
-dinosaur_pygame = dinosaur_pygame.main:main
-
