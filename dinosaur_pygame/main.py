@@ -15,7 +15,7 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption('Dinosaur RAWR!')
-    background_image, background_rect = _load_image('images/background2.png')
+    background_image, background_rect = _load_image('dinosaur_pygame/images/background.png')
     screen.blit(background_image, (0, 0))
     pygame.mouse.set_visible(False)
 
@@ -135,7 +135,7 @@ class Dinosaur(pygame.sprite.Sprite):
 
     def __init__(self, y):
         pygame.sprite.Sprite.__init__(self)
-        self.image, self.rect = _load_image('images/dinosaur.png')
+        self.image, self.rect = _load_image('dinosaur_pygame/images/dinosaur.png')
         self.rect.centerx = SCREEN_WIDTH / 2
         self.rect.centery = y
         self.current_lives = 5
@@ -196,7 +196,7 @@ class Meteor(FlyingObject):
     """
     def __init__(self, x):
         FlyingObject.__init__(self)
-        self.image, self.rect = _load_image('images/meteor.png')
+        self.image, self.rect = _load_image('dinosaur_pygame/images/meteor.png')
         self.rect.centerx = x
         self.rect.centery = 5
         self.speed = [randint(-2, 2), randrange(2) + 4]
@@ -207,7 +207,7 @@ class BigMeteor(FlyingObject):
     """
     def __init__(self, x):
         FlyingObject.__init__(self)
-        self.image, self.rect = _load_image('images/meteor-big.png')
+        self.image, self.rect = _load_image('dinosaur_pygame/images/meteor-big.png')
         self.rect.centerx = x
         self.rect.centery = 5
         self.speed = [randint(-1, 1), randrange(2) + 3]
@@ -218,7 +218,7 @@ class Ham(FlyingObject):
     """
     def __init__(self, x):
         FlyingObject.__init__(self)
-        self.image, self.rect = _load_image('images/ham.png', True)
+        self.image, self.rect = _load_image('dinosaur_pygame/images/ham.png', True)
         self.rect.centerx = x
         self.rect.centery = 5
         self.speed = [0, 2]

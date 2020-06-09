@@ -24,12 +24,12 @@ make run
 
 To install the package and check if it works before publishing the new version into https://pypi.org/:
 ```
-make clean
-make install
 make package_install
 dinosaur_pygame  # checks if it runs properly in the console. Run this with your venv activated.
 ```
-Good starting documentation for pypi packages: https://packaging.python.org/tutorials/packaging-projects/
+Good starting documentation for pypi packages: https://packaging.python.org/tutorials/packaging-projects/ and https://python-packaging.readthedocs.io/en/latest/command-line-scripts.html#the-console-scripts-entry-point.
+
+
 
 ## Art
 For the new version, I got the images from https://opengameart.org/:
