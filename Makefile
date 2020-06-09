@@ -25,7 +25,7 @@ mac_install:
 	brew install smpeg
 	brew install sdl2 sdl2_gfx sdl2_image sdl2_mixer sdl2_net sdl2_ttf
 
-package_install:
+install_package:
 	source .venv/bin/activate && python3 setup.py install && dinosaur_pygame
 
 upload_package_to_test_pypi:

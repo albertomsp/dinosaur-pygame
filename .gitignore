@@ -1,4 +1,6 @@
-build/
-dist/
 .DS_Store
 .venv
+
+build/
+dinosaur_pygame.egg-info
+dist/

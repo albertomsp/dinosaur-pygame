@@ -32,7 +32,7 @@ Good starting documentation for pypi packages: https://packaging.python.org/tuto
 #### To publish the new package in test pypi
 ```
 make upload_package_to_test_pypi  # it requires your token
-python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps dinosaur-pygame
+python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps dinosaur-pygame=={VERSION}
 dinosaur_pygame  # Run the app
 ```
 
