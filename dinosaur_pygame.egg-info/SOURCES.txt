@@ -1,0 +1,8 @@
+README.md
+setup.py
+dinosaur_pygame/__init__.py
+dinosaur_pygame/main.py
+dinosaur_pygame.egg-info/PKG-INFO
+dinosaur_pygame.egg-info/SOURCES.txt
+dinosaur_pygame.egg-info/dependency_links.txt
+dinosaur_pygame.egg-info/top_level.txt

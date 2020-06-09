@@ -11,7 +11,7 @@ clean:
 	rm -r .venv
 
 run:
-	source .venv/bin/activate && cd dinosaur_pygame/ &&  python3 main.py
+	source .venv/bin/activate && cd dinosaur_pygame/ &&  python3 __main__.py
 
 make run_original:
 	source .venv/bin/activate && cd dinosaur_pygame/first_version && python3 dinosaurio.py
