@@ -17,6 +17,7 @@ dinosaur_pygame  # The game is installed as a script, just needs to run that com
 You may need to [install some prerequisites](https://www.pygame.org/wiki/GettingStarted) to make `pygame` work. Once they are installed, to install the project:
 ```
 make install
+# `make clean` can be run to reset the project to a clean state
 ```
 
 #### To run the application:
