@@ -1,2 +1,9 @@
 .DS_Store
 .venv
+.pypirc
+
+build/
+dinosaur_pygame.egg-info
+dist/
+
+__pycache__/

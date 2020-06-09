@@ -4,7 +4,7 @@ import random
 import time
 from random import randint
 from random import randrange
-
+import os.path
 
 SCREEN_WIDTH = 640
 SCREEN_HEIGHT = 480
@@ -15,7 +15,7 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption('Dinosaur RAWR!')
-    background_image, background_rect = _load_image('images/background.png')
+    background_image, background_rect = _load_image('./images/background.png')
     screen.blit(background_image, (0, 0))
     pygame.mouse.set_visible(False)
 
@@ -121,11 +121,14 @@ def main():
         pygame.display.flip()
 
 
-def _load_image(image_path, colorkey=False):
+def _load_image(relative_image_path, colorkey=False):
     """ Utility method to load the images. It handles if the images contain
-    transparency.
+    transparency, and relative paths.
     """
-    image = pygame.image.load(image_path).convert_alpha()
+    current_path = os.path.abspath(os.path.dirname(__file__))
+    absolute_image_path = os.path.join(current_path, relative_image_path)
+
+    image = pygame.image.load(absolute_image_path).convert_alpha()
     return image, image.get_rect()
 
 
@@ -135,7 +138,7 @@ class Dinosaur(pygame.sprite.Sprite):
 
     def __init__(self, y):
         pygame.sprite.Sprite.__init__(self)
-        self.image, self.rect = _load_image('images/dinosaur.png')
+        self.image, self.rect = _load_image('./images/dinosaur.png')
         self.rect.centerx = SCREEN_WIDTH / 2
         self.rect.centery = y
         self.current_lives = 5
@@ -194,9 +197,10 @@ class FlyingObject(pygame.sprite.Sprite):
 class Meteor(FlyingObject):
     """ Class for one of the "enemies".
     """
+
     def __init__(self, x):
         FlyingObject.__init__(self)
-        self.image, self.rect = _load_image('images/meteor.png')
+        self.image, self.rect = _load_image('./images/meteor.png')
         self.rect.centerx = x
         self.rect.centery = 5
         self.speed = [randint(-2, 2), randrange(2) + 4]
@@ -205,9 +209,10 @@ class Meteor(FlyingObject):
 class BigMeteor(FlyingObject):
     """ Class for one of the "enemies".
     """
+
     def __init__(self, x):
         FlyingObject.__init__(self)
-        self.image, self.rect = _load_image('images/meteor-big.png')
+        self.image, self.rect = _load_image('./images/meteor-big.png')
         self.rect.centerx = x
         self.rect.centery = 5
         self.speed = [randint(-1, 1), randrange(2) + 3]
@@ -216,9 +221,10 @@ class BigMeteor(FlyingObject):
 class Ham(FlyingObject):
     """ Class for a power up that gives a life to the player if eaten.
     """
+
     def __init__(self, x):
         FlyingObject.__init__(self)
-        self.image, self.rect = _load_image('images/ham.png', True)
+        self.image, self.rect = _load_image('./images/ham.png', True)
         self.rect.centerx = x
         self.rect.centery = 5
         self.speed = [0, 2]
