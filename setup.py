@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="dinosaur-pygame",
-    version="0.0.5",
+    version="0.0.7",
     entry_points={
         'console_scripts': [
             'dinosaur_pygame=dinosaur_pygame.main:main',
@@ -21,6 +21,10 @@ setuptools.setup(
     install_requires=[
         'pygame>=2.0.0.dev4',
     ],
+    package_data={
+        'dinosaur_pygame': ['dinosaur_pygame'],
+    },
+    include_package_data=True,
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

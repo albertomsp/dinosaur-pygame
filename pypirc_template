@@ -1,0 +1,17 @@
+# Template to create .pypirc file, making easier to upload packages to
+# pypi.org and test.pypi.org, so no user-token need to be manually passed
+# to the CLI.
+
+[distutils]
+index-servers=
+    pypi
+    testpypi
+
+[pypi]
+username: __token__
+password: xxx
+
+[testpypi]
+repository: https://test.pypi.org/legacy/
+username: __token__
+password: yyy

@@ -34,9 +34,11 @@ upload_package_to_test_pypi:
 		python3 -m pip install --upgrade setuptools wheel; \
 		python3 setup.py sdist bdist_wheel; \
 		python3 -m pip install --upgrade twine; \
-		python3 -m twine upload --repository testpypi dist/*; \
+		python3 -m twine upload --config-file .pypirc --repository testpypi dist/* ; \
+		pip install -i https://test.pypi.org/simple/ dinosaur-pygame==0.0.7; \
+		dinosaur_pygame; \
 	)
-	# It asks for the test account token
+	# Needs .pypirc file - it can be created from the template `pypirc_template`
 
 upload_package_to_pypi:
 	( \
@@ -44,7 +46,7 @@ upload_package_to_pypi:
 		python3 -m pip install --upgrade setuptools wheel; \
 		python3 setup.py sdist bdist_wheel; \
 		python3 -m pip install --upgrade twine; \
-		python3 -m twine upload dist/*; \
+		python3 -m twine upload --config-file .pypirc --repository pypi dist/*; \
 	)
-	# It asks for the production token
+	# Needs .pypirc file - it can be created from the template `pypirc_template`
 
