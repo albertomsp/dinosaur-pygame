@@ -1,6 +1,7 @@
 .DS_Store
 .venv
 .pypirc
+.vscode
 
 build/
 dinosaur_pygame.egg-info
